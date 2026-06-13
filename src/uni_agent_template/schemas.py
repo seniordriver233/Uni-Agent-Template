@@ -34,7 +34,31 @@ class SponsorContext(BaseModel):
     matched: bool = False
 
 
+class KnowledgeItem(BaseModel):
+    title: str
+    url: str
+    summary: str
+    score: float = 0.0
+
+
+class SkillTrace(BaseModel):
+    name: str
+    content: str
+    citations: list[dict[str, str]] = Field(default_factory=list)
+
+
+class AgentProfile(BaseModel):
+    goals: list[str] = Field(default_factory=list)
+    strengths: list[str] = Field(default_factory=list)
+    preferences: list[str] = Field(default_factory=list)
+    constraints: list[str] = Field(default_factory=list)
+
+
 class ChatResponse(BaseModel):
     assistant_message: str
     sponsor: SponsorContext = Field(default_factory=SponsorContext)
     session_id: str = "default"
+    profile: AgentProfile = Field(default_factory=AgentProfile)
+    knowledge: list[KnowledgeItem] = Field(default_factory=list)
+    skills: list[SkillTrace] = Field(default_factory=list)
+    workflow: list[str] = Field(default_factory=list)

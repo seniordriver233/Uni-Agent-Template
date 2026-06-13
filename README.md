@@ -1,6 +1,6 @@
 # Uni-Agent-Template
 
-English | [????](README.zh-CN.md)
+English | [中文说明](README.zh-CN.md)
 
 A clean, modular starter for building agents that can join UniAds Agent Hub without letting sponsor logic damage the primary user experience.
 

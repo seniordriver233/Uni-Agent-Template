@@ -1,6 +1,6 @@
 # Architecture
 
-This template is intentionally small. The goal is not to hide complexity in a framework, but to show developers where every responsibility lives.
+This template is intentionally useful without being heavy. It follows the durable pattern used by mature agent projects: keep orchestration, tools, memory, retrieval, model calls, guardrails, and platform integration as separate modules.
 
 ## Layer Figure
 
@@ -9,10 +9,15 @@ flowchart TD
     Hub["UniAds Agent Hub / External Client"] --> API["server.py: FastAPI /chat"]
     API --> Schema["schemas.py: request/response models"]
     Schema --> Agent["agent.py: DomainAgent orchestration"]
-    Agent --> Memory["memory.py: history/profile state"]
-    Agent --> Tools["tools.py: domain tools and links"]
+    Agent --> Profile["memory.py: short history + user profile"]
+    Agent --> Knowledge["knowledge.py + sources.py: retrieval and source catalog"]
+    Agent --> Skills["skills.py: skill adapter / tool registry"]
     Agent --> LLM["llm.py: OpenAI-compatible model client"]
+    Agent --> Trace["workflow.py + observability.py: workflow stages"]
     LLM --> Primary["Primary answer"]
+    Knowledge --> Primary
+    Skills --> Primary
+    Profile --> Primary
     Primary --> UniAds["ads.py: /v2/sponsor-context"]
     UniAds --> Guardrails["guardrails.py: sensitivity + permission"]
     Guardrails --> Render["render_sponsor_card"]
@@ -24,25 +29,19 @@ flowchart TD
 | Layer | File | Responsibility | Safe To Replace? |
 | --- | --- | --- | --- |
 | HTTP | `server.py` | `/health` and `/chat` API | Yes |
-| Schema | `schemas.py` | typed request/response objects | Extend carefully |
+| Schema | `schemas.py` | typed request/response objects for Agent Hub | Extend carefully |
 | Agent | `agent.py` | orchestration and primary answer | Yes, main customization point |
 | LLM | `llm.py` | OpenAI-compatible chat completions | Yes |
+| Sources | `sources.py` | curated source catalog | Yes |
+| Knowledge | `knowledge.py` | lightweight retrieval | Replace with vector DB/RAG later |
+| Skills | `skills.py` | skill adapter and tool registry | Yes |
 | Ads | `ads.py` | UniAds V2 sponsor context | Keep contract stable |
 | Guardrails | `guardrails.py` | permission breakpoint | Extend carefully |
-| Memory | `memory.py` | simple session memory | Yes |
-| Tools | `tools.py` | domain helpers and safe links | Yes |
+| Memory | `memory.py` | short history and extracted user profile | Replace with DB/Redis |
+| Workflow | `workflow.py` | readable stage trace | Yes |
+| Observability | `observability.py` | timing/logging hooks | Yes |
 | Hub metadata | `uniads.agent.json` | Agent Hub registration fields | Update for your agent |
 
-## Request Flow
+## 中文说明
 
-1. A user sends `/chat` request.
-2. `DomainAgent` reads history and builds the primary answer.
-3. The primary answer is preserved.
-4. `UniAdsClient` calls `/v2/sponsor-context` with user context and draft response.
-5. If sponsor matches, the compact card is appended after the answer.
-6. If permission is required, the card includes the permission prompt and does not execute the sponsored action.
-7. If UniAds or the model fails, the agent returns a safe fallback answer.
-
-## ????
-
-????????????????????? `agent.py` ? `tools.py`??? `ads.py` ? UniAds V2 ?????????????????? Agent???????????????????
+这个模板不再只是一个聊天壳，而是一个可运行的 Agent 工程骨架。开发者可以替换 `agent.py`、`skills.py`、`sources.py` 和 `knowledge.py` 来构建自己的业务能力，同时保留 `ads.py` 的 UniAds V2 合同，确保赞助内容不会破坏用户主体验。

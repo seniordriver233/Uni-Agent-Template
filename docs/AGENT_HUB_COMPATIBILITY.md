@@ -1,30 +1,10 @@
 # Agent Hub Compatibility
 
-UniAds Agent Hub can list a developer agent when the agent clearly describes what it does and how it handles sponsored content safely.
+UniAds Agent Hub can list a developer agent when the agent clearly describes what it does, exposes a predictable API, and handles sponsored content safely.
 
 ## Manifest
 
-This template includes:
-
-```text
-uniads.agent.json
-```
-
-The manifest is intentionally close to the Agent Hub submission form.
-
-```json
-{
-  "name": "Uni Agent Template",
-  "description": "A modular starter agent...",
-  "main_functions": ["chat", "domain tools", "UniAds sponsor context"],
-  "ad_compatibility": "Primary answer works without ads...",
-  "supported_protocols": ["REST", "SDK", "MCP"],
-  "agent_site_url": "",
-  "repository_url": "https://github.com/seniordriver233/Uni-Agent-Template"
-}
-```
-
-Validate before publishing:
+This template includes `uniads.agent.json`. Validate before publishing:
 
 ```bash
 python scripts/validate_agent_hub_compatibility.py
@@ -50,7 +30,8 @@ python scripts/validate_agent_hub_compatibility.py
 - Sensitive sponsored actions require a permission prompt.
 - Developer API keys and model API keys must not be committed.
 - The `/chat` endpoint should return structured response data that Agent Hub can render.
+- The response should include useful metadata: profile, knowledge, skill traces, and workflow stages.
 
-## ????
+## 中文说明
 
-Agent Hub ?????????????????????????????????????????? UniAds ?????? API??????????????`uniads.agent.json` ??????????????
+Agent Hub 审核重点不是“广告越强越好”，而是：主功能是否可靠、赞助内容是否边界清晰、是否只通过 UniAds 代理访问赞助 API、敏感动作是否需要用户许可。`uniads.agent.json` 是给开发者准备的发布清单，`/chat` 返回的结构化字段则帮助 Agent Hub 更好地展示智能体能力。
