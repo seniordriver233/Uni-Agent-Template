@@ -1,6 +1,8 @@
-﻿# Uni-Agent-Template
+# Uni-Agent-Template
 
-A clean, modular starter for building agents that can join UniAds without letting sponsor logic damage the primary user experience.
+English | [????](README.zh-CN.md)
+
+A clean, modular starter for building agents that can join UniAds Agent Hub without letting sponsor logic damage the primary user experience.
 
 The template is original code, but its structure is informed by modern open-source agent projects:
 
@@ -20,7 +22,27 @@ This repo does not vendor or copy those projects. It provides a practical UniAds
 - Fail-open behavior: sponsor failure never blocks the main answer.
 - Compact sponsor card renderer.
 - FastAPI server for web deployment.
+- Agent Hub compatibility manifest: `uniads.agent.json`.
+- Step-by-step demo directory: `demo/`.
 - CLI smoke test and minimal tests.
+
+## Structure Layer Figure
+
+```mermaid
+flowchart TD
+    User["User / Agent Hub"] --> Server["server.py FastAPI /chat"]
+    Server --> Agent["agent.py DomainAgent"]
+    Agent --> Memory["memory.py SessionMemory"]
+    Agent --> Tools["tools.py domain tools"]
+    Agent --> LLM["llm.py OpenAI-compatible model"]
+    Agent --> Primary["Primary answer first"]
+    Primary --> Ads["ads.py UniAds V2 sponsor context"]
+    Ads --> Guard["guardrails.py permission breakpoint"]
+    Guard --> Card["Compact sponsor card after answer"]
+    Card --> Response["ChatResponse for web / Agent Hub"]
+```
+
+Full architecture notes: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Quick Start
 
@@ -41,6 +63,17 @@ curl -X POST http://127.0.0.1:8080/chat ^
   -d "{\"message\":\"Help me choose a tool for internship search\"}"
 ```
 
+## Build An Agent Step By Step
+
+Open [demo/README.md](demo/README.md). It walks through the same modules developers normally customize:
+
+1. Define domain tools.
+2. Add memory/profile logic.
+3. Compose the primary agent answer.
+4. Attach UniAds V2 sponsor context.
+5. Expose the agent through FastAPI.
+6. Validate Agent Hub compatibility.
+
 ## Configuration
 
 Use environment variables or `.env`:
@@ -56,6 +89,26 @@ UNIADS_AGENT_NAME=My Agent
 ```
 
 Never commit real API keys.
+
+## UniAds / Agent Hub Compatibility
+
+Agent Hub needs a clear description and sponsor boundary. This template includes `uniads.agent.json`:
+
+```bash
+python scripts/validate_agent_hub_compatibility.py
+```
+
+The manifest maps to Agent Hub submission fields:
+
+- `name`
+- `description`
+- `main_functions`
+- `ad_compatibility`
+- `supported_protocols`
+- `agent_site_url`
+- `repository_url`
+
+See [docs/AGENT_HUB_COMPATIBILITY.md](docs/AGENT_HUB_COMPATIBILITY.md).
 
 ## UniAds Contract
 
@@ -77,6 +130,7 @@ See [docs/UNIADS_ADS_MODULE.md](docs/UNIADS_ADS_MODULE.md).
 - `src/uni_agent_template/tools.py`: add safe tools and API clients.
 - `src/uni_agent_template/memory.py`: replace in-memory storage with database/Redis.
 - `src/uni_agent_template/server.py`: expose extra endpoints.
+- `uniads.agent.json`: prepare Agent Hub registration metadata.
 
 ## License
 

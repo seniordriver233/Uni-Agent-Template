@@ -1,4 +1,4 @@
-﻿# Developer Guide
+# Developer Guide
 
 ## Recommended Structure
 
@@ -11,15 +11,18 @@ This template separates agent code into replaceable modules:
 - `memory.py`: session history.
 - `tools.py`: domain utilities and safe external tools.
 - `server.py`: FastAPI HTTP surface.
+- `uniads.agent.json`: Agent Hub submission metadata.
 
 ## How To Build Your Agent
 
-1. Rename `DomainAgent` to your product agent name.
-2. Replace `compose_primary_answer` with your core logic.
-3. Add domain APIs in `tools.py`.
-4. Keep UniAds sponsor requests in `ads.py` so every sponsored API stays proxy-only.
-5. Keep sponsor content after the primary answer.
-6. Return permission prompts for sensitive sponsored actions instead of executing silently.
+1. Start from `demo/README.md` and run every step once.
+2. Rename `DomainAgent` or subclass it with your product agent name.
+3. Replace `compose_primary_answer` with your core logic.
+4. Add domain APIs in `tools.py`.
+5. Keep UniAds sponsor requests in `ads.py` so every sponsored API stays proxy-only.
+6. Keep sponsor content after the primary answer.
+7. Return permission prompts for sensitive sponsored actions instead of executing silently.
+8. Update `uniads.agent.json` and validate it before Agent Hub submission.
 
 ## UniAds Compatibility Checklist
 
@@ -29,3 +32,8 @@ This template separates agent code into replaceable modules:
 - No direct vendor sponsor calls from the agent.
 - Developer API key is configured outside source code.
 - Sensitive actions require user permission.
+- `python scripts/validate_agent_hub_compatibility.py` passes.
+
+## ????
+
+????????? Agent???? UniAds?????????? prompt ?????? `ads.py` ?????????????????????????? Agent Hub ???

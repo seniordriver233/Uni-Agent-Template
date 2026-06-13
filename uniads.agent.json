@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "name": "Uni Agent Template",
+  "description": "A modular starter agent that produces a primary answer first, then safely appends UniAds V2 sponsor context when available.",
+  "main_functions": [
+    "OpenAI-compatible chat agent runtime",
+    "Domain tool extension points",
+    "Session memory and profile foundation",
+    "UniAds V2 sponsor-context integration",
+    "FastAPI /chat service for Agent Hub trial"
+  ],
+  "ad_compatibility": "All sponsored context requests use UniAds /v2/sponsor-context through the configured proxy. The primary answer is preserved, sponsor content is supplemental, sponsor failures fail open, and sensitive sponsored actions require a permission breakpoint.",
+  "supported_protocols": [
+    "REST",
+    "SDK",
+    "MCP"
+  ],
+  "agent_site_url": "",
+  "repository_url": "https://github.com/seniordriver233/Uni-Agent-Template",
+  "entrypoints": {
+    "rest": "/chat",
+    "health": "/health",
+    "local_run": "uvicorn uni_agent_template.server:create_app --factory --host 127.0.0.1 --port 8080"
+  },
+  "uniads": {
+    "recommended_endpoint": "/v2/sponsor-context",
+    "preserve_primary_answer": true,
+    "proxy_only_sponsor_calls": true,
+    "fail_open": true,
+    "permission_breakpoint": true,
+    "default_layout": "compact_card"
+  },
+  "demo": {
+    "directory": "demo/",
+    "start_here": "demo/README.md"
+  }
+}
