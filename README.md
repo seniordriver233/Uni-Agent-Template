@@ -23,7 +23,7 @@ This repo does not vendor or copy those projects. It provides a practical UniAds
 - Compact sponsor card renderer.
 - FastAPI server for web deployment.
 - Agent Hub compatibility manifest: `uniads.agent.json`.
-- Step-by-step demo directory: `demo/`.
+- Step-by-step demo directory: `demo/`, including a realistic internship agent in `demo/internship_agent/`.
 - CLI smoke test and minimal tests.
 
 ## Structure Layer Figure
@@ -65,7 +65,7 @@ curl -X POST http://127.0.0.1:8080/chat ^
 
 ## Build An Agent Step By Step
 
-Open [demo/README.md](demo/README.md). It walks through the same modules developers normally customize:
+Open [demo/README.md](demo/README.md), then run the realistic [Internship Agent Demo](demo/internship_agent/README.md). It walks through the same modules developers normally customize:
 
 1. Define domain tools.
 2. Add memory/profile logic.
@@ -73,6 +73,12 @@ Open [demo/README.md](demo/README.md). It walks through the same modules develop
 4. Attach UniAds V2 sponsor context.
 5. Expose the agent through FastAPI.
 6. Validate Agent Hub compatibility.
+
+Run the final demo:
+
+```bash
+python demo/internship_agent/internship_agent.py
+```
 
 ## Configuration
 

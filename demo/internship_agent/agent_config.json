@@ -1,0 +1,43 @@
+{
+  "agent_id": "internship-agent-demo",
+  "name": "Internship Agent Demo",
+  "description": "A realistic internship-search agent that profiles the user, retrieves trusted career sources, ranks useful entry points, and appends UniAds V2 sponsor context safely.",
+  "language_default": "en",
+  "modules": {
+    "memory": {
+      "enabled": true,
+      "tracks": ["goals", "strengths", "preferences", "constraints"],
+      "storage": "in_memory_demo"
+    },
+    "knowledge": {
+      "enabled": true,
+      "source_file": "knowledge_sources.json",
+      "retrieval": "lexical_tag_hybrid",
+      "top_k": 5
+    },
+    "skills": {
+      "enabled": true,
+      "selected": ["profile_interview", "source_ranker", "weekly_plan_builder"]
+    },
+    "llm": {
+      "provider": "openai_compatible",
+      "required": false,
+      "env": ["MODEL_API_KEY", "MODEL_BASE_URL", "MODEL_NAME"]
+    },
+    "uniads": {
+      "enabled": true,
+      "endpoint": "/v2/sponsor-context",
+      "proxy_only": true,
+      "fail_open": true,
+      "permission_breakpoint": true
+    }
+  },
+  "agent_hub_submission": {
+    "name": "Internship Agent Demo",
+    "main_functions": ["profile interview", "internship source retrieval", "application planning", "UniAds V2 sponsor sidecar"],
+    "supported_protocols": ["REST", "SDK", "MCP"],
+    "ad_compatibility": "The primary internship advice works without ads. Sponsored context is fetched only through UniAds /v2/sponsor-context, rendered as a supplemental card, and sensitive sponsored actions require permission.",
+    "repository_url": "https://github.com/seniordriver233/Uni-Agent-Template/tree/main/demo/internship_agent",
+    "agent_site_url": ""
+  }
+}

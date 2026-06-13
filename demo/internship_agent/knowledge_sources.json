@@ -1,0 +1,58 @@
+[
+  {
+    "id": "linkedin-internships",
+    "title": "LinkedIn Internship Search",
+    "url": "https://www.linkedin.com/jobs/search/?keywords=internship",
+    "summary": "Broad internship search entry with company, location, date, and experience filters.",
+    "tags": ["internship", "jobs", "search", "general"]
+  },
+  {
+    "id": "google-students",
+    "title": "Google Student Careers",
+    "url": "https://www.google.com/about/careers/applications/students/",
+    "summary": "Official Google student and internship career entry point.",
+    "tags": ["internship", "software", "student", "big tech"]
+  },
+  {
+    "id": "microsoft-university",
+    "title": "Microsoft University Recruiting",
+    "url": "https://careers.microsoft.com/students/us/en",
+    "summary": "Official Microsoft student, internship, and university recruiting page.",
+    "tags": ["internship", "software", "student", "big tech"]
+  },
+  {
+    "id": "openai-careers",
+    "title": "OpenAI Careers",
+    "url": "https://openai.com/careers/",
+    "summary": "Official OpenAI career page for AI research, engineering, product, and operations roles.",
+    "tags": ["ai", "agent", "llm", "career"]
+  },
+  {
+    "id": "anthropic-careers",
+    "title": "Anthropic Careers",
+    "url": "https://www.anthropic.com/careers",
+    "summary": "Official Anthropic career page for AI safety, product, infrastructure, and research roles.",
+    "tags": ["ai", "llm", "safety", "career"]
+  },
+  {
+    "id": "github-internship-resources",
+    "title": "GitHub Internship Resources",
+    "url": "https://github.com/search?q=awesome+internship",
+    "summary": "Community-maintained internship lists, preparation guides, and interview resources.",
+    "tags": ["internship", "student", "community", "preparation"]
+  },
+  {
+    "id": "kaggle-learn",
+    "title": "Kaggle Learn",
+    "url": "https://www.kaggle.com/learn",
+    "summary": "Hands-on learning tracks for data, machine learning, Python, and portfolio projects.",
+    "tags": ["skills", "python", "machine learning", "portfolio"]
+  },
+  {
+    "id": "ycombinator-jobs",
+    "title": "Y Combinator Startup Jobs",
+    "url": "https://www.ycombinator.com/jobs",
+    "summary": "Startup job board useful for finding early-stage AI and software internship-like opportunities.",
+    "tags": ["startup", "software", "ai", "jobs"]
+  }
+]

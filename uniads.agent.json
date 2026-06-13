@@ -32,6 +32,8 @@
   },
   "demo": {
     "directory": "demo/",
-    "start_here": "demo/README.md"
+    "start_here": "demo/README.md",
+    "outcome_illustration": "demo/internship_agent/README.md",
+    "runnable_agent": "demo/internship_agent/internship_agent.py"
   }
 }
